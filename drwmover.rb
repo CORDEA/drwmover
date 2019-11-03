@@ -1,4 +1,4 @@
 require 'optparse'
 
-params = ARGV.getopts("", "")
+params = ARGV.getopts("", "source:", "target:")
 p params
