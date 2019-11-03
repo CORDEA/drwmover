@@ -27,4 +27,7 @@ if files.empty?
   logger.error("File not found.")
 end
 
+sizes = files.map { |file| File.size(file) }.sort
+
+p sizes
 p files.length
