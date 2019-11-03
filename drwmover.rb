@@ -1,6 +1,9 @@
 require 'optparse'
 require 'logger'
 
+DPI = %w(mdpi hdpi xhdpi xxhdpi xxxhdpi)
+DRAWABLE_PATH = "src/main/res/drawable"
+
 logger = Logger.new(STDOUT)
 
 params = ARGV.getopts("", "source:", "target:", "name:")
@@ -28,6 +31,16 @@ if files.empty?
 end
 
 sizes = files.map { |file| File.size(file) }.sort
+
+if sizes.length < 5
+  logger.error("Drawable file is not enough.")
+end
+
+DPI.each { |dpi|
+  unless Dir.exist?(File.join(target, DRAWABLE_PATH + "-" + dpi))
+    logger.error("Drawable dir not found.")
+  end
+}
 
 p sizes
 p files.length
