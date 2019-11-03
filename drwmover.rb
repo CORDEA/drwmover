@@ -18,12 +18,13 @@ unless Dir.exist?(target)
 end
 
 file_path = File.join(source, name)
-unless file_path.end_with?(".png")
-  file_path += ".png"
+unless file_path.end_with?("*.png")
+  file_path += "*.png"
 end
 
-unless File.exist?(file_path)
+files = Dir.glob(file_path)
+if files.empty?
   logger.error("File not found.")
 end
 
-p file_path
+p files.length
