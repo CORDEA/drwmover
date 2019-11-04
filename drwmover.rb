@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'optparse'
 require 'logger'
 
@@ -40,5 +41,6 @@ paths.each { |path|
   end
 }
 
-p sizes
-p files.length
+files.zip(paths).each { |file, path|
+  FileUtils.cp(file, File.join(path, file_name), verbose: true)
+}
