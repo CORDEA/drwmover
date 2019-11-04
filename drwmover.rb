@@ -27,14 +27,15 @@ if files.empty?
   logger.error("File not found.")
 end
 
-sizes = files.map { |file| File.size(file) }.sort
-
-if sizes.length < 5
+if files.length < 5
   logger.error("Drawable file is not enough.")
 end
 
-DPI.each { |dpi|
-  unless Dir.exist?(File.join(target, DRAWABLE_PATH + "-" + dpi))
+files.sort_by! { |file| File.size(file) }
+paths = DPI.map { |dpi| File.join(target, DRAWABLE_PATH + "-" + dpi) }
+
+paths.each { |path|
+  unless Dir.exist?(path)
     logger.error("Drawable dir not found.")
   end
 }
